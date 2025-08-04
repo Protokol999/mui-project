@@ -10,7 +10,8 @@ export const Contacts = () => {
     name: '',
     surname: '',
     email: '',
-    message: ''
+    message: '',
+    phone: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -28,7 +29,7 @@ export const Contacts = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const text = `Новое сообщение:\nИмя: ${formData.name}\nФамилия: ${formData.surname}\nEmail: ${formData.email}\nСообщение: ${formData.message}`;
+    const text = `Новое сообщение:\nИмя: ${formData.name}\nФамилия: ${formData.surname}\nEmail: ${formData.email}\nСообщение: ${formData.message}\nТелефон: ${formData.phone}`;
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(
       text
     )}`;
@@ -42,7 +43,13 @@ export const Contacts = () => {
       });
       if (response.ok) {
         alert('Сообщение успешно отправлено');
-        setFormData({ name: '', surname: '', email: '', message: '' });
+        setFormData({
+          name: '',
+          surname: '',
+          email: '',
+          message: '',
+          phone: ''
+        });
       } else {
         alert('Произошла ошибка при отправке сообщения');
       }
@@ -88,6 +95,21 @@ export const Contacts = () => {
             onChange={handleChange}
             margin='normal'
             required
+          />
+          <TextField
+            fullWidth
+            label='Number'
+            name='phone'
+            type='tel'
+            value={formData.number}
+            onChange={handleChange}
+            margin='normal'
+            required
+            inputProps={{
+              inputMode: 'tel',
+              pattern: '[+0-9 ]{10,20}',
+              maxLength: 20
+            }}
           />
           <TextField
             fullWidth
