@@ -1,12 +1,14 @@
 import CloseIcon from '@mui/icons-material/Close';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import MenuIcon from '@mui/icons-material/Menu';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {
   AppBar,
   Box,
-  Button,
   Drawer,
   IconButton,
   Link,
@@ -36,17 +38,17 @@ export const Navbar = () => {
     {
       label: 'Telegram',
       href: 'https://web.telegram.org/k/',
-      color: 'inherit'
+      icon: <TelegramIcon />
     },
     {
       label: 'Instagram',
       href: 'https://www.instagram.com/mitioglog/',
-      color: 'inherit'
+      icon: <InstagramIcon />
     },
     {
       label: 'Facebook',
       href: 'https://www.facebook.com/profile.php?id=100087287156064',
-      color: 'inherit'
+      icon: <FacebookIcon />
     }
   ];
 
@@ -116,16 +118,15 @@ export const Navbar = () => {
                   </List>
                   <Stack spacing={1} mt={2}>
                     {socialLinks.map(link => (
-                      <Button
+                      <IconButton
                         key={link.label}
                         component='a'
                         href={link.href}
                         target='_blank'
                         rel='noopener noreferrer'
-                        variant='contained'
                       >
-                        {link.label}
-                      </Button>
+                        {link.icon}
+                      </IconButton>
                     ))}
                   </Stack>
                 </Box>
@@ -149,7 +150,7 @@ export const Navbar = () => {
               </Stack>
               <Stack direction='row' spacing={1}>
                 {socialLinks.map(link => (
-                  <Button
+                  <IconButton
                     key={link.label}
                     component='a'
                     href={link.href}
@@ -158,12 +159,11 @@ export const Navbar = () => {
                     variant='contained'
                     sx={{
                       borderRadius: 20,
-                      backgroundColor: 'white',
-                      color: 'blue'
+                      backgroundColor: 'white'
                     }}
                   >
-                    {link.label}
-                  </Button>
+                    {link.icon}
+                  </IconButton>
                 ))}
               </Stack>
             </>

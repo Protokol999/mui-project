@@ -8,7 +8,7 @@ export const About = () => {
       <Typography variant='h2'>
         Наша фирма уже на рынке более 10-ти лет
       </Typography>
-      <Typography variant='h3'>Более 1000-чи довольных клиентво</Typography>
+      <Typography variant='h3'>Более 1000-чи довольных клиентов</Typography>
       <div style={{ margin: 10, justifyContent: 'center' }}>
         <Button onClick={() => prompt('Сколько лет?')}>Нажми на меня</Button>
       </div>
