@@ -125,13 +125,55 @@ export const Contacts = () => {
           <Button
             type='submit'
             variant='contained'
-            color='primary'
             disabled={isSubmitting}
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 2,
+              backgroundColor: 'tomato',
+              borderRadius: '20px',
+              '&:hover': {
+                backgroundColor: 'white',
+                color: 'tomato',
+                transition: '0.5s ease'
+              }
+            }}
           >
             {isSubmitting ? 'Отправка формы' : 'Отправить'}
           </Button>
         </form>
+      </Box>
+      <Box
+        sx={{
+          m: 4,
+          p: 2,
+          borderRadius: 4,
+          bgcolor: 'background.paper',
+          boxShadow: '0px 4px 20px rgba(0,0,0,0.2)'
+        }}
+      >
+        <Typography variant='h5' gutterBottom textAlign='center'>
+          📍 Мы на карте
+        </Typography>
+
+        <Box
+          sx={{
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: 3,
+            height: { xs: 300, md: 500 } // адаптивная высота
+          }}
+        >
+          <iframe
+            src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4362.746863394709!2d28.863187796774522!3d47.06227880561094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97d1f89756797%3A0x870a4b5c890d84be!2zU3RyYWRhIFN0dWRlbsibaWxvciA3LCBDaGnImWluxIN1LCDQnNC-0LvQtNC-0LLQsA!5e1!3m2!1sru!2s!4v1754469831509!5m2!1sru!2s'
+            width='100%'
+            height='100%'
+            style={{
+              border: 0
+            }}
+            allowFullScreen=''
+            loading='lazy'
+            referrerPolicy='no-referrer-when-downgrade'
+          ></iframe>
+        </Box>
       </Box>
     </Container>
   );

@@ -19,7 +19,9 @@ export const About = () => {
         <Typography variant='h2'>
           Поставляем авто из <span>Кореи,США</span> и Китая
         </Typography>
-        <img src={map} alt='' />
+        <div className='image'>
+          <img src={map} alt='' />
+        </div>
       </div>
     </Container>
   );

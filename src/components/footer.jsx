@@ -1,14 +1,15 @@
-import { Box, Container, Grid, Link, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 
 export const Footer = () => {
   return (
     <Box
       component='footer'
       sx={{
-        backgroundColor: '#CCCCFF',
+        backgroundColor: ' coral',
         color: 'white',
         py: 4,
-        borderRadius: '0 0 10px 10px'
+        borderRadius: '0 0 10px 10px',
+        color: 'white'
       }}
     >
       <Container maxWidth='lg'>
@@ -23,36 +24,19 @@ export const Footer = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} md={4}>
-            <Typography variant='h6' gutterBottom>
-              Полезные ссылки
-            </Typography>
-            <Stack spacing={1}>
-              <Link href='/' color='inherit' underline='hover'>
-                Главная
-              </Link>
-              <Link href='/about' color='inherit' underline='hover'>
-                О нас
-              </Link>
-              <Link href='/contact' color='inherit' underline='hover'>
-                Контакты
-              </Link>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
+          <Grid sx={{ ml: 'auto' }} item xs={12} md={4}>
             <Typography variant='h6' gutterBottom>
               Контакты
             </Typography>
-            <Typography variant='body2'>Телефон: +373 6 888 750</Typography>
-            <Typography variant='body2'>Email: info@autofree.md</Typography>
+            <Typography variant='body2'>📞 +373 6 888 750</Typography>
+            <Typography variant='body2'>✉️ info@autofree.md</Typography>
             <Typography variant='body2'>
-              Адрес: г. Кишинёв, ул. Студенческая, 7/1
+              📍 г. Кишинёв, ул. Студенческая, 7/1
             </Typography>
           </Grid>
         </Grid>
 
-        <Box textAlign='center' mt={4} fontSize={14} color='grey.500'>
+        <Box textAlign='center' mt={4} fontSize={14} color='white'>
           © {new Date().getFullYear()} AUTO FREE. Все права защищены.
         </Box>
       </Container>

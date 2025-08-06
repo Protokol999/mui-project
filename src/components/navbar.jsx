@@ -1,10 +1,13 @@
 import CloseIcon from '@mui/icons-material/Close';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { Link as RouterLink } from 'react-router-dom';
+import { useThemeMode } from './themeContext';
 
 import {
   AppBar,
@@ -27,6 +30,7 @@ export const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { mode, toggleTheme } = useThemeMode();
 
   const navLinks = [
     { label: 'Главная', href: '/' },
@@ -61,7 +65,8 @@ export const Navbar = () => {
           width: '90%',
           mx: 'auto',
           mt: 1,
-          backgroundColor: '#CCCCFF'
+          backgroundColor: 'coral',
+          color: 'white'
         }}
       >
         <Toolbar sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
@@ -112,7 +117,14 @@ export const Navbar = () => {
                         component='a'
                         href={link.href}
                       >
-                        <ListItemText primary={link.label} />
+                        <ListItemText
+                          sx={{
+                            '&:hover': {
+                              color: 'red'
+                            }
+                          }}
+                          primary={link.label}
+                        />
                       </ListItem>
                     ))}
                   </List>
@@ -142,7 +154,14 @@ export const Navbar = () => {
                     color='inherit'
                     underline='none'
                     variant='button'
-                    sx={{ fontWeight: 500 }}
+                    sx={{
+                      fontWeight: 500,
+
+                      '&:hover': {
+                        color: 'coral',
+                        transition: '0.6s ease'
+                      }
+                    }}
                   >
                     {link.label}
                   </Link>
@@ -165,6 +184,13 @@ export const Navbar = () => {
                     {link.icon}
                   </IconButton>
                 ))}
+                <IconButton onClick={toggleTheme}>
+                  {mode === 'dark' ? (
+                    <DarkModeIcon sx={{ color: 'black' }} />
+                  ) : (
+                    <LightModeIcon sx={{ color: 'yellow' }} />
+                  )}
+                </IconButton>
               </Stack>
             </>
           )}
