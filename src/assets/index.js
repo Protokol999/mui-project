@@ -3,6 +3,7 @@ export { default as aston } from './aston.jpg';
 export { default as audi } from './audi.jpeg';
 export { default as bmw } from './bmw3.jpg';
 export { default as cadillac } from './cadillac.jpeg';
+export { default as car } from './car.svg';
 export { default as kia } from './kia.png';
 export { default as leaf } from './leaf.jpeg';
 export { default as lexus } from './lexus.png';

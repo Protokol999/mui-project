@@ -1,6 +1,8 @@
+import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
@@ -13,21 +15,49 @@ export const Contacts = () => {
     message: '',
     phone: ''
   });
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [alert, setAlert] = useState({
+    severity: '',
+    message: '',
+    visible: false
+  });
 
   const BOT_TOKEN = '7941942970:AAGesD8DXAUe09bmNBdPFoIF4tVqXKnM_-s';
   const CHAT_ID = '807422319';
 
   const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrors(prev => ({ ...prev, [e.target.name]: '' })); // сброс ошибки при изменении
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = 'Имя обязательно';
+    if (!formData.surname.trim()) newErrors.surname = 'Фамилия обязательна';
+
+    if (!formData.email.trim()) newErrors.email = 'Email обязателен';
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = 'Некорректный email';
+
+    if (!formData.phone.trim()) newErrors.phone = 'Телефон обязателен';
+    else if (!/^[+0-9 ]{10,20}$/.test(formData.phone))
+      newErrors.phone = 'Некорректный формат телефона';
+
+    if (!formData.message.trim()) newErrors.message = 'Сообщение обязательно';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    if (!validate()) return;
+
     setIsSubmitting(true);
+    setAlert({ visible: false });
 
     const text = `Новое сообщение:\nИмя: ${formData.name}\nФамилия: ${formData.surname}\nEmail: ${formData.email}\nСообщение: ${formData.message}\nТелефон: ${formData.phone}`;
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(
@@ -35,14 +65,14 @@ export const Contacts = () => {
     )}`;
 
     try {
-      const response = await fetch(url, {
-        method: 'GET'
-        // headers: {
-        //   'Content-Type': 'application/json'
-        // }
-      });
+      const response = await fetch(url, { method: 'GET' });
+
       if (response.ok) {
-        alert('Сообщение успешно отправлено');
+        setAlert({
+          severity: 'success',
+          message: 'Сообщение успешно отправлено',
+          visible: true
+        });
         setFormData({
           name: '',
           surname: '',
@@ -51,11 +81,18 @@ export const Contacts = () => {
           phone: ''
         });
       } else {
-        alert('Произошла ошибка при отправке сообщения');
+        setAlert({
+          severity: 'error',
+          message: 'Произошла ошибка при отправке сообщения',
+          visible: true
+        });
       }
     } catch (error) {
-      console.error('Ошибка:', error);
-      alert('Произошла ошибка при отправке');
+      setAlert({
+        severity: 'error',
+        message: 'Произошла ошибка при отправке',
+        visible: true
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -63,11 +100,22 @@ export const Contacts = () => {
 
   return (
     <Container maxWidth='sm'>
-      <Box sx={{ mt: 4, mb: 4 }}>
+      <Box
+        sx={{
+          mt: 4,
+          mb: 4,
+          border: '3px solid tomato',
+          m: 3,
+          p: 2,
+          borderRadius: '20px',
+          boxShadow: '2px 2px 5px 5px rgba(0,0,0,0.5)'
+        }}
+      >
         <Typography variant='h4' component='h1' gutterBottom>
-          Контактная форма
+          Оставить заявку
         </Typography>
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={handleSubmit} noValidate>
           <TextField
             fullWidth
             label='Имя'
@@ -76,6 +124,8 @@ export const Contacts = () => {
             onChange={handleChange}
             margin='normal'
             required
+            error={!!errors.name}
+            helperText={errors.name}
           />
           <TextField
             fullWidth
@@ -85,6 +135,8 @@ export const Contacts = () => {
             onChange={handleChange}
             margin='normal'
             required
+            error={!!errors.surname}
+            helperText={errors.surname}
           />
           <TextField
             fullWidth
@@ -95,16 +147,20 @@ export const Contacts = () => {
             onChange={handleChange}
             margin='normal'
             required
+            error={!!errors.email}
+            helperText={errors.email}
           />
           <TextField
             fullWidth
             label='Number'
             name='phone'
             type='tel'
-            value={formData.number}
+            value={formData.phone}
             onChange={handleChange}
             margin='normal'
             required
+            error={!!errors.phone}
+            helperText={errors.phone}
             inputProps={{
               inputMode: 'tel',
               pattern: '[+0-9 ]{10,20}',
@@ -121,6 +177,8 @@ export const Contacts = () => {
             multiline
             rows={4}
             required
+            error={!!errors.message}
+            helperText={errors.message}
           />
           <Button
             type='submit'
@@ -140,7 +198,15 @@ export const Contacts = () => {
             {isSubmitting ? 'Отправка формы' : 'Отправить'}
           </Button>
         </form>
+
+        <Stack sx={{ mt: 3 }} spacing={2}>
+          {alert.visible && (
+            <Alert severity={alert.severity}>{alert.message}</Alert>
+          )}
+        </Stack>
       </Box>
+
+      {/* Карта ниже, можно улучшить отдельно, если нужно */}
       <Box
         sx={{
           m: 4,
@@ -167,9 +233,7 @@ export const Contacts = () => {
             width='100%'
             title='Google Maps Location'
             height='100%'
-            style={{
-              border: 0
-            }}
+            style={{ border: 0 }}
             allowFullScreen=''
             loading='lazy'
             referrerPolicy='no-referrer-when-downgrade'

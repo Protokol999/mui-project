@@ -1,4 +1,5 @@
 import SettingsIcon from '@mui/icons-material/Settings';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import {
   Button,
   Card,
@@ -114,23 +115,72 @@ const cars = [
     price: `7 800$`
   }
 ];
+
 export const Usa = () => {
   return (
     <Container sx={{ py: 5 }}>
-      <Stack sx={{ m: 2.5 }}>
-        <Typography variant='h3'>
-          Также мы занимаемся пригоном авто из Соединеных Штатов Америки
+      {/* Текстовый блок с описанием */}
+      <Stack spacing={3} mb={5} maxWidth={720} mx='auto' textAlign='center'>
+        <Typography variant='h3' fontWeight={700} sx={{ color: 'tomato' }}>
+          Пригон автомобилей из США с максимальной заботой о клиентах
         </Typography>
-        <Typography variant='h3'> Клиенты все довольны</Typography>
-        <Typography variant='h5'>
-          {' '}
-          Связь с клиентом происходит 24/7,от начала аукциона до привоза
-          автомобиля в Молдову.
+        <Typography
+          variant='body1'
+          color='text.secondary'
+          fontSize={18}
+          lineHeight={1.6}
+        >
+          Мы обеспечиваем полную поддержку на каждом этапе: от участия в
+          аукционе до доставки автомобиля в Молдову. Связь с клиентом
+          поддерживается круглосуточно, чтобы вы всегда были в курсе состояния
+          вашей покупки.
+        </Typography>
+        <Typography
+          variant='body1'
+          color='text.secondary'
+          fontSize={18}
+          lineHeight={1.6}
+        >
+          Наш опыт позволяет гарантировать:
+        </Typography>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent='center'
+          spacing={{ xs: 2, sm: 6 }}
+          flexWrap='wrap'
+        >
+          {[
+            '✔ Прозрачность и честность на всех этапах',
+            '✔ Подбор авто с учетом ваших требований и бюджета',
+            '✔ Полное оформление и доставка без хлопот',
+            '✔ Персональный менеджер и поддержка 24/7'
+          ].map((point, index) => (
+            <Typography
+              key={index}
+              variant='body2'
+              color='text.secondary'
+              fontWeight={600}
+              sx={{ minWidth: 200 }}
+            >
+              {point}
+            </Typography>
+          ))}
+        </Stack>
+        <Typography
+          variant='body1'
+          color='text.secondary'
+          fontSize={18}
+          lineHeight={1.6}
+        >
+          Ознакомьтесь с популярными моделями, которые мы с радостью поможем вам
+          пригнать из США.
         </Typography>
       </Stack>
+
+      {/* Карточки авто */}
       <Grid container spacing={3}>
-        {cars.map(cars => (
-          <Grid item key={cars.id} xs={12} sm={6} md={4}>
+        {cars.map(car => (
+          <Grid item key={car.id} xs={12} sm={6} md={4}>
             <Card
               sx={{
                 borderRadius: 2,
@@ -140,15 +190,21 @@ export const Usa = () => {
                 flexDirection: 'column',
                 boxShadow: '2px 2px 8px 2px rgba(0,0,0,0.5)',
                 p: 2,
-                cursor: 'pointer'
+                cursor: 'pointer',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  transition: '0.6s ease',
+                  boxShadow: '0px 10px 20px rgba(0,0,0,0.3)'
+                }
               }}
             >
               <CardMedia
                 component='img'
                 height='160'
-                image={cars.image}
-                alt={cars.title}
+                image={car.image}
+                alt={car.title}
                 sx={{
+                  border: '2px solid tomato',
                   borderRadius: 5,
                   transition: 'transform 0.5s ease, box-shadow 0.5s ease',
                   '&:hover': {
@@ -159,25 +215,39 @@ export const Usa = () => {
               />
               <CardContent>
                 <Typography gutterBottom variant='h5' component='div'>
-                  {cars.title}
+                  {car.title}
                 </Typography>
-                <Stack direction='row' spacing={1}>
-                  <Typography variant='body1' sx={{ color: 'text.secondary' }}>
-                    Model: {cars.model}
+                <Stack direction='row' spacing={1} flexWrap='wrap' gap={1}>
+                  <Typography
+                    variant='body1'
+                    sx={{ color: 'text.secondary', minWidth: '80px' }}
+                  >
+                    Model: {car.model}
                   </Typography>
-                  <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                    {cars.km}
+                  <Typography
+                    variant='body2'
+                    sx={{ color: 'text.secondary', minWidth: '70px' }}
+                  >
+                    {car.km} km
                   </Typography>
-                  <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                    {cars.vol}
+                  <Typography
+                    variant='body2'
+                    sx={{ color: 'text.secondary', minWidth: '90px' }}
+                  >
+                    {car.vol}
                   </Typography>
-                  <Stack direction='row'>
-                    <SettingsIcon size='small' />
+                  <Stack
+                    direction='row'
+                    spacing={0.5}
+                    alignItems='center'
+                    minWidth='60px'
+                  >
+                    <SettingsIcon fontSize='small' />
                     <Typography
                       variant='body2'
                       sx={{ color: 'text.secondary' }}
                     >
-                      {cars.priv}
+                      {car.priv}
                     </Typography>
                   </Stack>
                 </Stack>
@@ -189,10 +259,11 @@ export const Usa = () => {
                       color: 'coral',
                       transition: '0.4s'
                     },
-                    fontWeight: 700
+                    fontWeight: 700,
+                    mt: 1
                   }}
                 >
-                  Price: {cars.price}
+                  Price: {car.price}
                 </Typography>
               </CardContent>
               <CardActions sx={{ mt: 1 }}>
@@ -226,6 +297,7 @@ export const Usa = () => {
                       transition: '0.6s ease'
                     }
                   }}
+                  startIcon={<TelegramIcon />}
                 >
                   Сообщение
                 </Button>
