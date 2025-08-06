@@ -165,6 +165,7 @@ export const Contacts = () => {
           <iframe
             src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4362.746863394709!2d28.863187796774522!3d47.06227880561094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97d1f89756797%3A0x870a4b5c890d84be!2zU3RyYWRhIFN0dWRlbsibaWxvciA3LCBDaGnImWluxIN1LCDQnNC-0LvQtNC-0LLQsA!5e1!3m2!1sru!2s!4v1754469831509!5m2!1sru!2s'
             width='100%'
+            title='Google Maps Location'
             height='100%'
             style={{
               border: 0

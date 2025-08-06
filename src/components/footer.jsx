@@ -6,7 +6,6 @@ export const Footer = () => {
       component='footer'
       sx={{
         backgroundColor: ' coral',
-        color: 'white',
         py: 4,
         borderRadius: '0 0 10px 10px',
         color: 'white'
